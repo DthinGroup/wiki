@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Iot网络层无线技术方案PK(1) - 技术特点初探 | dthing wiki</title>
+    
+    
+        <meta name="keywords" content="iot,nb-iot,lora,wifi,zigbee" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="#Iot网络层无线技术方案PK(1) - 技术特点初探 [TOC] 0.引言 物联网领域典型的3层结构划分为:  感知层 网络层 应用层 (细粒度可进一步划分为服务层和应用层)   感知层是数据的来源, 应用层是数据的分析展现. 网络层是钮合感知层和应用层的重要数据通路.目前网络层的成熟方案有各种有线、无线方式或组合方">
+<meta name="keywords" content="iot,nb-iot,lora,wifi,zigbee">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Iot网络层无线技术方案PK(1) - 技术特点初探">
+<meta property="og:url" content="https://DthinGroup.github.io/wiki/2017/07/25/03-Iot/[iot] - Iot网络层无线技术方案PK(1) - 技术特点初探/index.html">
+<meta property="og:site_name" content="dthing wiki">
+<meta property="og:description" content="#Iot网络层无线技术方案PK(1) - 技术特点初探 [TOC] 0.引言 物联网领域典型的3层结构划分为:  感知层 网络层 应用层 (细粒度可进一步划分为服务层和应用层)   感知层是数据的来源, 应用层是数据的分析展现. 网络层是钮合感知层和应用层的重要数据通路.目前网络层的成熟方案有各种有线、无线方式或组合方式。本文主要讨论几个用于物联网网络层的无线技术">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://otfz8unl1.bkt.clouddn.com/markdown/171030/2hF2jf074h.png">
+<meta property="og:updated_time" content="2017-10-31T06:03:57.532Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Iot网络层无线技术方案PK(1) - 技术特点初探">
+<meta name="twitter:description" content="#Iot网络层无线技术方案PK(1) - 技术特点初探 [TOC] 0.引言 物联网领域典型的3层结构划分为:  感知层 网络层 应用层 (细粒度可进一步划分为服务层和应用层)   感知层是数据的来源, 应用层是数据的分析展现. 网络层是钮合感知层和应用层的重要数据通路.目前网络层的成熟方案有各种有线、无线方式或组合方式。本文主要讨论几个用于物联网网络层的无线技术">
+<meta name="twitter:image" content="http://otfz8unl1.bkt.clouddn.com/markdown/171030/2hF2jf074h.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="dthing wiki" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/wiki/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/wiki/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/wiki/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/wiki/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/wiki/css/style.css">
+    <script src="/wiki/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/wiki/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/wiki/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/wiki/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/wiki/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">dthing wiki</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="https://nixlong.github.io">Home</a>
+                
+                    <a class="main-nav-link" href="https://nixlong.github.io/blog">Blog</a>
+                
+                    <a class="main-nav-link" href="/wiki/">Wiki</a>
+                
+                    <a class="main-nav-link" href="https://nixlong.github.io/about/index.html">About</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/wiki/',
+        CONTENT_URL: '/wiki/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/wiki/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="https://nixlong.github.io">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="https://nixlong.github.io/blog">Blog</a></td>
+                
+                    <td><a class="main-nav-link" href="/wiki/">Wiki</a></td>
+                
+                    <td><a class="main-nav-link" href="https://nixlong.github.io/about/index.html">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-up fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" style="display: block;"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOT
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/07/24/03-Iot/[iot] - Iot基础案例设计初览/">Iot基础案例设计初览</a></li>  <li class="file active"><a href="/wiki/2017/07/25/03-Iot/[iot] - Iot网络层无线技术方案PK(1) - 技术特点初探/">Iot网络层无线技术方案PK(1) - 技术特点初探</a></li>  <li class="file"><a href="/wiki/2017/07/26/03-Iot/[iot] - Iot网络层无线技术方案PK(2) - 华山论剑Round 1 - LPWAN的王者之争 - NB-IOT pk Lora/">Iot网络层无线技术方案PK(2) - LPWAN的王者之争[NB-IOT pk Lora]</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            JAVA
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/11/24/05-Java/[java] - 03.Java的字面常量值/">Java的字面常量值</a></li>  <li class="file"><a href="/wiki/2017/11/23/05-Java/[java] - 02.Java的NaN和Infinity/">Java的NaN和Infinity</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            MCU
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/08/04/04-Mcu/[mcu] - STM32内存结构总结/">STM32内存结构总结</a></li>  <li class="file"><a href="/wiki/2017/10/26/04-Mcu/[mcu] - UCOSIII-3.04.05定时器Bug/">UCOSIII-v3.04.05 定时器Bug</a></li>  <li class="file"><a href="/wiki/2017/08/14/04-Mcu/[mcu] - Ymodem协议移植/">Ymodem协议移植</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            TOOL
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/09/30/09-Tools/[0] - Hexo+github搭建Blog/">Hexo + Github搭建Blog</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            VM
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/10/20/02-Vm/[vm] - JVM反编译/">JVM反编译</a></li>  <li class="file"><a href="/wiki/2017/10/20/02-Vm/[vm] - Dalvik反编译/">Dalvik反编译</a></li>  <li class="file"><a href="/wiki/2017/10/25/02-Vm/[vm] - VM学习工具和资料整理/">VM学习资料整理</a></li>  <li class="file"><a href="/wiki/2017/10/19/02-Vm/[vm] - 理解Dalvik指令码执行原理/">理解Dalvik指令码执行原理</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-03-Iot/[iot] - Iot网络层无线技术方案PK(1) - 技术特点初探" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="http://otfz8unl1.bkt.clouddn.com/markdown/171030/2hF2jf074h.png" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/wiki/categories/IOT/">IOT</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/wiki/tags/iot/">iot</a>, <a class="tag-link" href="/wiki/tags/lora/">lora</a>, <a class="tag-link" href="/wiki/tags/nb-iot/">nb-iot</a>, <a class="tag-link" href="/wiki/tags/wifi/">wifi</a>, <a class="tag-link" href="/wiki/tags/zigbee/">zigbee</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/2017/07/25/03-Iot/[iot] - Iot网络层无线技术方案PK(1) - 技术特点初探/">
+            <time datetime="2017-07-25T04:00:00.000Z" itemprop="datePublished">2017-07-25</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Iot网络层无线技术方案PK(1) - 技术特点初探
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-引言"><span class="toc-number">1.</span> <span class="toc-text">0.引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-网络层技术方案总览"><span class="toc-number">2.</span> <span class="toc-text">1.网络层技术方案总览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-撩开你的面纱-各家技术特点初探"><span class="toc-number">3.</span> <span class="toc-text">2.撩开你的面纱 - 各家技术特点初探</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Wifi典型特点"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 Wifi典型特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-蓝牙典型特点"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 蓝牙典型特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Zigbee典型特点"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 Zigbee典型特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Z-Wave典型特点"><span class="toc-number">3.4.</span> <span class="toc-text">2.4 Z-Wave典型特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-Lora典型特点"><span class="toc-number">3.5.</span> <span class="toc-text">2.5 Lora典型特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-NB-IOT典型特点"><span class="toc-number">3.6.</span> <span class="toc-text">2.6 NB-IOT典型特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-问"><span class="toc-number">3.7.</span> <span class="toc-text">2.7 问?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-华山论剑之-PK"><span class="toc-number">4.</span> <span class="toc-text">3. 华山论剑之/PK</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>#Iot网络层无线技术方案PK(1) - 技术特点初探</p>
+<p>[TOC]</p>
+<h2 id="0-引言"><a href="#0-引言" class="headerlink" title="0.引言"></a>0.引言</h2><blockquote>
+<p><strong>物联网领域典型的3层结构划分为:</strong></p>
+<ul>
+<li>感知层</li>
+<li>网络层</li>
+<li>应用层 (细粒度可进一步划分为服务层和应用层) </li>
+</ul>
+<p>感知层是数据的来源, 应用层是数据的分析展现. 网络层是钮合感知层和应用层的重要数据通路.目前网络层的成熟方案有各种有线、无线方式或组合方式。本文主要讨论几个用于物联网网络层的无线技术</p>
+</blockquote>
+<p><br></p>
+<a id="more"></a>
+<h2 id="1-网络层技术方案总览"><a href="#1-网络层技术方案总览" class="headerlink" title="1.网络层技术方案总览"></a>1.网络层技术方案总览</h2><p><img src="http://otfz8unl1.bkt.clouddn.com/markdown/170725/lemdeLH9I9.png" alt="两类网络结构"></p>
+<p> 根据不同的应用场景, 可以使用两类网络结构来完成物联网组网.</p>
+<blockquote>
+<ol>
+<li><p>单层网络结构:<br>如果应用场景终端点数极少或者终端点距离极远, 可以直接使用点通过互联网接入云的网络结构, 这里的网络接入解决方案可以是有线的以太网、无线的wifi(*参见说明1)、 或者运营商的2/3/4/5G网络、SMS短消息甚至急趋于成熟的nb-iot</p>
+</li>
+<li><p>两层网络结构:<br>如果应用场景终端点数较多或终端点需要相互通讯,就需要采用双层网络结构组网, 其中两层网络中间的纽带就是物联网网关(不同应用场景有不同叫法).网关向上负责广域网的接入, 网关向下负责局域网各终端节点的管理,并进一步实现实现两层网络的转换和进行数据转发. 根据不同应用场景, 广域网的技术方案可以是以太网、Wifi (<em> 参见说明1)、2/3/4/5G 等(此类模式绝大多数场景中SMS、NB-IOT不适合作为广域网出口). 局域网技术方案可以使用MODBUS等成熟的老牌有线通讯协议, 也可以从Wifi(</em> 参见说明1)、 BLE(低功耗蓝牙技术)、ZigBee、Z-Wave、Lora(* 见说明2)等无线技术方案中选择</p>
+</li>
+</ol>
+</blockquote>
+<p>要点:</p>
+<blockquote>
+<ol>
+<li>使用有线连接技术进行组网，可选用的广域网接入方式有以太网,局域网组网方式有以太网、MODBUS等</li>
+<li>使用无线连接技术进行组网，可选用的广域网接入方式有Wifi、NB-IOT，而局域网可选择的方式有Wifi、BLE、Zigbee、Z-Wave、Lora(* 见说明2)等</li>
+</ol>
+</blockquote>
+<p>说明:</p>
+<blockquote>
+<ol>
+<li>Wifi[无线保真]属于WLAN(无线局域网)的技术之一，是局域网联网解决方案, 但是实际使用中,Wifi AP通过有线宽带或者2/3/4G运营商网络直接接入广域网后. 那么接入此AP的WIFI STA也直接具备广域网访问能力. 因此这里我们视WIFI既能做为局域网组网方案、也能作为广域网接入方案. </li>
+<li><strong>关于Lora和NB-IOT</strong> 补充一点:  本身这两种协议都属于LPWAN(低功耗广域网) 方案！ 是的, 他们设计初衷是直接作为广域网接入协议的. 但是由于国内运营商都主推NB-IOT能进行广域网接入, 而对于工作于非授权频段的Lora还没有任何表示(国外有部分运营商在推), 国内用户需要自行搭建基站/网关来进行广域网接入. 在一些小型的lora使用场景里, Lora网关是需要通过协议转换才能接入广域网，因此针对目前国内状况，本文就暂且将Lora归入局域网组网方案；而将NB-IOT视为广域网接入方案.</li>
+</ol>
+</blockquote>
+<p>接下来主要比较 <strong>Wifi、Bluetooth(蓝牙)、ZigBee、Z-Wave、Lora、NB-IOT</strong> 几类无线通信技术的特点和典型应用场景<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">备注: </span><br><span class="line">无线通信技术非常多, 为何本文只选这几种对比? 缘由前4类(Wifi/蓝牙/Zigbee/Z-Wave) 在近年的家居物联网领域采用相对广泛, 而Lora/NB-IOT又在中国的LPWAN应用领域上位之争争得不亦乐乎, 就让人容易忽略掉LPWAN的诸如sigfox的其他几个儿子...</span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="2-撩开你的面纱-各家技术特点初探"><a href="#2-撩开你的面纱-各家技术特点初探" class="headerlink" title="2.撩开你的面纱 - 各家技术特点初探"></a>2.撩开你的面纱 - 各家技术特点初探</h2><p><img src="http://otfz8unl1.bkt.clouddn.com/markdown/170726/8G96822FGa.png?imageslim" alt="mark"></p>
+<h3 id="2-1-Wifi典型特点"><a href="#2-1-Wifi典型特点" class="headerlink" title="2.1 Wifi典型特点"></a>2.1 Wifi典型特点</h3><ul>
+<li>基于IEEE 802.11, 支持广域网/局域网接入 / 2.4G ISM频段</li>
+<li>带宽高、传输速率很快(&gt;10MB/s)、普及率高</li>
+<li>中近距离通讯、接入较慢、无线稳定性相对较差</li>
+<li>有限的网络容量, 接入能力非常有限(常低于16个接入点的水平)</li>
+<li>相对功耗较高</li>
+<li>数据加密型安全等级相对较低, 容易暴力破解</li>
+<li>成本: 具备专利费, 目前费用已较低</li>
+<li>​</li>
+</ul>
+<h3 id="2-2-蓝牙典型特点"><a href="#2-2-蓝牙典型特点" class="headerlink" title="2.2 蓝牙典型特点"></a>2.2 蓝牙典型特点</h3><ul>
+<li>蓝牙技术联盟, 局域网协议 / 2.4G ISM频段</li>
+<li>很近距离通讯(典型值 &lt; 10米), 较低的功耗、通信速率中快(1MB/s级别)</li>
+<li>非常有限的接入容量(典型值 &lt; 8), 常用于一对一配对访问场景</li>
+<li>功耗：较低</li>
+<li>数据安全性: 较低</li>
+<li>成本: 较低</li>
+</ul>
+<h3 id="2-3-Zigbee典型特点"><a href="#2-3-Zigbee典型特点" class="headerlink" title="2.3 Zigbee典型特点"></a>2.3 Zigbee典型特点</h3><ul>
+<li>基于IEEE802.15.4标准的局域网协议 / 2.4G ISM频段</li>
+<li>近距离、低复杂度、自组网(多种组网方案)、低功耗、低数据速率(最大250KB/s)、低成本</li>
+<li>很大的网络容量, 理论最大可以到65000</li>
+<li>带有中继路由功能, 此功能可以用于远距离扩展和信号阻挡时跳跃</li>
+<li>安全等级: AES-128加密，高</li>
+<li>成本: 免专利费, 芯片加外围电路. 较低</li>
+</ul>
+<h3 id="2-4-Z-Wave典型特点"><a href="#2-4-Z-Wave典型特点" class="headerlink" title="2.4 Z-Wave典型特点"></a>2.4 Z-Wave典型特点</h3><ul>
+<li>Zensys公司开发/Z-wave联盟, 暂未进入IEEE标准 / 局域网协议</li>
+<li>工作频段: 908.42MHz(美国)~868.42MHz(欧洲)，此频段在国内属于非民用频段</li>
+<li>低成本、低功耗、高可靠、短距离(典型值30米)</li>
+<li>低传输速率(9.6k bps)</li>
+<li>中等网络容量(目前最大232个节点, 大于蓝牙、Wifi, 小于zigbee)</li>
+<li>安全等级: 无加密</li>
+</ul>
+<h3 id="2-5-Lora典型特点"><a href="#2-5-Lora典型特点" class="headerlink" title="2.5 Lora典型特点"></a>2.5 Lora典型特点</h3><ul>
+<li>Lora联盟, 设计为广域网接入, 实际国内暂不受运营商待见.需要自己架设网关, 实际用成了局域网</li>
+<li>工作频段: 非授权</li>
+<li>远距离、超低功耗, 电池供电典型寿命能达到10年</li>
+<li>低速数据传输, 网络容量非常大</li>
+<li>有支持星型网络的LoraWAN系统协议结构设计, 也可进行mesh组网实现,但会损失低功耗特性</li>
+</ul>
+<h3 id="2-6-NB-IOT典型特点"><a href="#2-6-NB-IOT典型特点" class="headerlink" title="2.6 NB-IOT典型特点"></a>2.6 NB-IOT典型特点</h3><ul>
+<li>3GPP，复用运营商蜂窝网络. 国内运营商大力发展，但网络覆盖还在试点区域</li>
+<li>远距离、超低功耗， 电池供电典型寿命能达到10年</li>
+<li>低速数据传输, 网络容量非常大</li>
+</ul>
+<p><br></p>
+<h3 id="2-7-问"><a href="#2-7-问" class="headerlink" title="2.7 问?"></a>2.7 问?</h3><pre><code>1. 从上各技术特点可以看出, Wifi、蓝牙、ZigBee都工作在2.4G ISM 频段, 真是不花钱的ISM频段大法好啊, 这也造成一个困扰: 工作在同一个信号空间时的相互频段干扰...得想法好好解决... 
+2. Z-Wave咋看有点相似ZigBee，似乎是ZigBee的一个子集版本, 随着竞争的剧烈, 那么谁是六耳猕猴，谁又是能取真经的孙悟空呢?
+3. Lora和NB-IOT真的除了爹妈不一样, 简直就是双胞胎, 技术特征极其相似. 在国内的LPWAN域, 最后谁会练就铁砂掌的裘千仞，谁又会是招摇撞骗的裘千丈呢?
+</code></pre><blockquote>
+<p>Think:<br>对比了几类无线传输技术的技术特点, 各个技术都有自己的个性特征, 但某些技术相互之间又有些看似重合的特点导致存在明显的竞争关系, 在在实际场景中该怎么选用呢？ </p>
+</blockquote>
+<h2 id="3-华山论剑之-PK"><a href="#3-华山论剑之-PK" class="headerlink" title="3. 华山论剑之/PK"></a>3. 华山论剑之/PK</h2><p>在实际应用中，方案选择总会参照几个要点: 方案成本、速率、数据安全性、网络稳定性和网络容量、功耗和传输距离 等. 然后综合选择一个解决方案…</p>
+<p>华山论剑，近了…</p>
+<p><br></p>
+<hr>
+<blockquote>
+<p>Author： nix.long<br>Date    : 2017.07.25<br>整理撰写，禁止转载； 错误之处，敬谢斧正.</p>
+</blockquote>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/2017/07/26/03-Iot/[iot] - Iot网络层无线技术方案PK(2) - 华山论剑Round 1 - LPWAN的王者之争 - NB-IOT pk Lora/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Iot网络层无线技术方案PK(2) - LPWAN的王者之争[NB-IOT pk Lora]
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/2017/07/24/03-Iot/[iot] - Iot基础案例设计初览/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Iot基础案例设计初览</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            nix.long &copy; 2017 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+
+    
+        <script src="/wiki/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/wiki/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/wiki/js/main.js"></script>
+
+    </div>
+</body>
+</html>

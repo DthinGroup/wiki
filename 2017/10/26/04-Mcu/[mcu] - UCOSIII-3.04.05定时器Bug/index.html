@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>UCOSIII-v3.04.05 定时器Bug | dthing wiki</title>
+    
+    
+        <meta name="keywords" content="ucosiii,timer" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="#UCOSIII-v3.04.05 定时器Bug [TOC] 0. 异常发生移植Dthing 到UCOSIII-v3.04.05, 使用UCOS定时器作为调度时标支持. 涉及到定时器接口: 123456789void  OSTmrCreate (OS_TMR               *p_tmr,         ">
+<meta name="keywords" content="ucosiii,timer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UCOSIII-v3.04.05 定时器Bug">
+<meta property="og:url" content="https://DthinGroup.github.io/wiki/2017/10/26/04-Mcu/[mcu] - UCOSIII-3.04.05定时器Bug/index.html">
+<meta property="og:site_name" content="dthing wiki">
+<meta property="og:description" content="#UCOSIII-v3.04.05 定时器Bug [TOC] 0. 异常发生移植Dthing 到UCOSIII-v3.04.05, 使用UCOS定时器作为调度时标支持. 涉及到定时器接口: 123456789void  OSTmrCreate (OS_TMR               *p_tmr,                   CPU_CHAR             *p_name,">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://otfz8unl1.bkt.clouddn.com/markdown/171031/43LFEFGHeL.png">
+<meta property="og:updated_time" content="2017-10-31T06:05:26.006Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UCOSIII-v3.04.05 定时器Bug">
+<meta name="twitter:description" content="#UCOSIII-v3.04.05 定时器Bug [TOC] 0. 异常发生移植Dthing 到UCOSIII-v3.04.05, 使用UCOS定时器作为调度时标支持. 涉及到定时器接口: 123456789void  OSTmrCreate (OS_TMR               *p_tmr,                   CPU_CHAR             *p_name,">
+<meta name="twitter:image" content="http://otfz8unl1.bkt.clouddn.com/markdown/171031/43LFEFGHeL.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="dthing wiki" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/wiki/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/wiki/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/wiki/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/wiki/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/wiki/css/style.css">
+    <script src="/wiki/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/wiki/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/wiki/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/wiki/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/wiki/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">dthing wiki</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="https://nixlong.github.io">Home</a>
+                
+                    <a class="main-nav-link" href="https://nixlong.github.io/blog">Blog</a>
+                
+                    <a class="main-nav-link" href="/wiki/">Wiki</a>
+                
+                    <a class="main-nav-link" href="https://nixlong.github.io/about/index.html">About</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/wiki/',
+        CONTENT_URL: '/wiki/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/wiki/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="https://nixlong.github.io">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="https://nixlong.github.io/blog">Blog</a></td>
+                
+                    <td><a class="main-nav-link" href="/wiki/">Wiki</a></td>
+                
+                    <td><a class="main-nav-link" href="https://nixlong.github.io/about/index.html">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-up fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" style="display: block;"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOT
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/07/24/03-Iot/[iot] - Iot基础案例设计初览/">Iot基础案例设计初览</a></li>  <li class="file"><a href="/wiki/2017/07/25/03-Iot/[iot] - Iot网络层无线技术方案PK(1) - 技术特点初探/">Iot网络层无线技术方案PK(1) - 技术特点初探</a></li>  <li class="file"><a href="/wiki/2017/07/26/03-Iot/[iot] - Iot网络层无线技术方案PK(2) - 华山论剑Round 1 - LPWAN的王者之争 - NB-IOT pk Lora/">Iot网络层无线技术方案PK(2) - LPWAN的王者之争[NB-IOT pk Lora]</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            JAVA
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/11/24/05-Java/[java] - 03.Java的字面常量值/">Java的字面常量值</a></li>  <li class="file"><a href="/wiki/2017/11/23/05-Java/[java] - 02.Java的NaN和Infinity/">Java的NaN和Infinity</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            MCU
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/08/04/04-Mcu/[mcu] - STM32内存结构总结/">STM32内存结构总结</a></li>  <li class="file active"><a href="/wiki/2017/10/26/04-Mcu/[mcu] - UCOSIII-3.04.05定时器Bug/">UCOSIII-v3.04.05 定时器Bug</a></li>  <li class="file"><a href="/wiki/2017/08/14/04-Mcu/[mcu] - Ymodem协议移植/">Ymodem协议移植</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            TOOL
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/09/30/09-Tools/[0] - Hexo+github搭建Blog/">Hexo + Github搭建Blog</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            VM
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/10/20/02-Vm/[vm] - JVM反编译/">JVM反编译</a></li>  <li class="file"><a href="/wiki/2017/10/20/02-Vm/[vm] - Dalvik反编译/">Dalvik反编译</a></li>  <li class="file"><a href="/wiki/2017/10/25/02-Vm/[vm] - VM学习工具和资料整理/">VM学习资料整理</a></li>  <li class="file"><a href="/wiki/2017/10/19/02-Vm/[vm] - 理解Dalvik指令码执行原理/">理解Dalvik指令码执行原理</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-04-Mcu/[mcu] - UCOSIII-3.04.05定时器Bug" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="http://otfz8unl1.bkt.clouddn.com/markdown/171031/43LFEFGHeL.png" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/wiki/categories/MCU/">MCU</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/wiki/tags/timer/">timer</a>, <a class="tag-link" href="/wiki/tags/ucosiii/">ucosiii</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/2017/10/26/04-Mcu/[mcu] - UCOSIII-3.04.05定时器Bug/">
+            <time datetime="2017-10-26T10:00:00.000Z" itemprop="datePublished">2017-10-26</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            UCOSIII-v3.04.05 定时器Bug
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-异常发生"><span class="toc-number">1.</span> <span class="toc-text">0. 异常发生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-原因在哪"><span class="toc-number">2.</span> <span class="toc-text">1. 原因在哪?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-真相终于浮出水面"><span class="toc-number">2.1.</span> <span class="toc-text">1.2 真相终于浮出水面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-解决方案"><span class="toc-number">3.</span> <span class="toc-text">2.解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-新版本还有bug吗"><span class="toc-number">4.</span> <span class="toc-text">3.新版本还有bug吗</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>#UCOSIII-v3.04.05 定时器Bug</p>
+<p>[TOC]</p>
+<h2 id="0-异常发生"><a href="#0-异常发生" class="headerlink" title="0. 异常发生"></a>0. 异常发生</h2><p>移植Dthing 到UCOSIII-v3.04.05, 使用UCOS定时器作为调度时标支持. 涉及到定时器接口:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">OSTmrCreate</span> <span class="params">(OS_TMR               *p_tmr,</span></span></span><br><span class="line"><span class="function"><span class="params">                   CPU_CHAR             *p_name,</span></span></span><br><span class="line"><span class="function"><span class="params">                   OS_TICK               dly,</span></span></span><br><span class="line"><span class="function"><span class="params">                   OS_TICK               period,</span></span></span><br><span class="line"><span class="function"><span class="params">                   OS_OPT                opt,</span></span></span><br><span class="line"><span class="function"><span class="params">                   OS_TMR_CALLBACK_PTR   p_callback,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">void</span>                 *p_callback_arg,</span></span></span><br><span class="line"><span class="function"><span class="params">                   OS_ERR               *p_err)</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">CPU_BOOLEAN  <span class="title">OSTmrStart</span> <span class="params">(OS_TMR  *p_tmr,</span></span></span><br><span class="line"><span class="function"><span class="params">                         OS_ERR  *p_err)</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">CPU_BOOLEAN  <span class="title">OSTmrStop</span> <span class="params">(OS_TMR  *p_tmr,</span></span></span><br><span class="line"><span class="function"><span class="params">                        OS_OPT   opt,</span></span></span><br><span class="line"><span class="function"><span class="params">                        <span class="keyword">void</span>    *p_callback_arg,</span></span></span><br><span class="line"><span class="function"><span class="params">                        OS_ERR  *p_err)</span></span></span><br></pre></td></tr></table></figure>
+<p>创建定时器示意代码:</p>
+<ul>
+<li>周期性定时器</li>
+<li>无delay</li>
+<li>周期性时间为若干毫秒</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">        OS_TMR * tmr  = NULL;        </span><br><span class="line">        OS_OPT   opt  = OS_OPT_TMR_PERIODIC;        </span><br><span class="line">        OS_TICK  dly  = 0;</span><br><span class="line">        OS_ERR   err;</span><br><span class="line">        </span><br><span class="line">        tmr = malloc(sizeof(OS_TMR));</span><br><span class="line">        if(tmr == NULL)&#123;            </span><br><span class="line">            //handle exception</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        OSTmrCreate(tmr, &quot;name&quot;, dly, period_ms, opt, callback, NULL, &amp;err);</span><br></pre></td></tr></table></figure>
+<p>然后启动定时器在各种状态下进行Debug Start/Stop, 然后奇怪的事情发生了:</p>
+<blockquote>
+<p>有时出现等待很久, 定时器都没有超时回调callback的情况</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="1-原因在哪"><a href="#1-原因在哪" class="headerlink" title="1. 原因在哪?"></a>1. 原因在哪?</h2><p>反复检查参数设置, 阅读各API使用说明, 均未发现接口使用方面的异常, 相关Dthing定时器逻辑层代码在其他操作系统, 诸如win/threadx都能正常的超时响应. 是ucos-iii定时器存在BUG?</p>
+<p>顺着这个猜想开始阅读ucos-iii timer源码.</p>
+<p>###1.1 Timer的状态转换 </p>
+<ol>
+<li><p>create时, 状态设置为OS_TMR_STATE_STOPPED:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p_tmr-&gt;State          = (OS_STATE           )OS_TMR_STATE_STOPPED;     <span class="comment">/* Initialize the timer fields             */</span></span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>首次start成功后,状态切换到 OS_TMR_STATE_RUNNING:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">case</span> OS_TMR_STATE_STOPPED:                          <span class="comment">/* Start the timer                                        */</span></span><br><span class="line">    <span class="keyword">case</span> OS_TMR_STATE_COMPLETED:</span><br><span class="line">         p_tmr-&gt;State  = OS_TMR_STATE_RUNNING;</span><br><span class="line"><span class="keyword">if</span> (p_tmr-&gt;Dly == (OS_TICK)<span class="number">0</span>) &#123;</span><br><span class="line">             p_tmr-&gt;Remain = p_tmr-&gt;Period;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">             p_tmr-&gt;Remain = p_tmr-&gt;Dly;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">if</span> (OSTmrListPtr ==  (OS_TMR *)<span class="number">0</span>) &#123;            <span class="comment">/* Link into timer list                                   */</span></span><br><span class="line">             p_tmr-&gt;NextPtr   = (OS_TMR *)<span class="number">0</span>;            <span class="comment">/* This is the first timer in the list                    */</span></span><br><span class="line">             p_tmr-&gt;PrevPtr   = (OS_TMR *)<span class="number">0</span>;</span><br><span class="line">             OSTmrListPtr     = p_tmr;</span><br><span class="line">             OSTmrListEntries = <span class="number">1u</span>;</span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">             p_next           = OSTmrListPtr;           <span class="comment">/* Insert at the beginning of the list                    */</span></span><br><span class="line">             p_tmr-&gt;NextPtr   = OSTmrListPtr;</span><br><span class="line">             p_tmr-&gt;PrevPtr   = (OS_TMR *)<span class="number">0</span>;</span><br><span class="line">             p_next-&gt;PrevPtr  = p_tmr;</span><br><span class="line">             OSTmrListPtr     = p_tmr;</span><br><span class="line">             OSTmrListEntries++;</span><br><span class="line">         &#125;</span><br><span class="line">        *p_err   = OS_ERR_NONE;</span><br><span class="line">         success = DEF_TRUE;</span><br><span class="line">         <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再看timer的任务核心逻辑部分:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">p_tmr-&gt;Remain--;</span><br><span class="line">            <span class="keyword">if</span> (p_tmr-&gt;Remain == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (p_tmr-&gt;Opt == OS_OPT_TMR_PERIODIC) &#123;</span><br><span class="line">                    p_tmr-&gt;Remain = p_tmr-&gt;Period;               <span class="comment">/* Reload the time remaining                         */</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    OS_TmrUnlink(p_tmr);                         <span class="comment">/* Remove from list                                  */</span></span><br><span class="line">                    p_tmr-&gt;State = OS_TMR_STATE_COMPLETED;       <span class="comment">/* Indicate that the timer has completed             */</span></span><br><span class="line">                &#125;</span><br><span class="line">                p_fnct = p_tmr-&gt;CallbackPtr;                     <span class="comment">/* Execute callback function if available            */</span></span><br><span class="line">                <span class="keyword">if</span> (p_fnct != (OS_TMR_CALLBACK_PTR)<span class="number">0</span>) &#123;</span><br><span class="line">                    (*p_fnct)((<span class="keyword">void</span> *)p_tmr,</span><br><span class="line">                              p_tmr-&gt;CallbackPtrArg);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+<p>p_tmr-&gt;Remain先–, 再判断如果到0且为周期性定时器, 再次装载计时时间间隔,然后调用回调; 如果到0且是一次性定时器, 就切换到OS_TMR_STATE_COMPLETED状态.</p>
+<p>看到这里知道, 定时器超时是通过p_tmr-&gt;Remain变量判断的, 再查p_tmr-&gt;Remain的赋值地方</p>
+</li>
+<li><p>关注点回到OSTmrStart:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    <span class="keyword">switch</span> (p_tmr-&gt;State) &#123;</span><br><span class="line">        <span class="keyword">case</span> OS_TMR_STATE_RUNNING:                          <span class="comment">/* Restart the timer                                      */</span></span><br><span class="line">             p_tmr-&gt;Remain = p_tmr-&gt;Dly;</span><br><span class="line">            *p_err         = OS_ERR_NONE;</span><br><span class="line">             success       = DEF_TRUE;</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> OS_TMR_STATE_STOPPED:                          <span class="comment">/* Start the timer                                        */</span></span><br><span class="line">        <span class="keyword">case</span> OS_TMR_STATE_COMPLETED:</span><br><span class="line">             p_tmr-&gt;State  = OS_TMR_STATE_RUNNING;</span><br><span class="line">			 <span class="keyword">if</span> (p_tmr-&gt;Dly == (OS_TICK)<span class="number">0</span>) &#123;</span><br><span class="line">                 p_tmr-&gt;Remain = p_tmr-&gt;Period;</span><br><span class="line">			 &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                 p_tmr-&gt;Remain = p_tmr-&gt;Dly;</span><br><span class="line">             &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>​    终于柳暗花明, p_tmr-&gt;Remain在不同的定时策略下，初值来自p_tmr-&gt;Period或者p_tmr-&gt;Dly.</p>
+<p>​    注意 <code>case OS_TMR_STATE_RUNNING:</code> 条件和’case OS_TMR_STATE_STOPPED’ 不一致的地方, 再快速联想到:</p>
+<p>​    1)  使用时dly初值为0</p>
+<p>​    2) typedef   CPU_INT32U      OS_TICK;</p>
+<p>​    3) 定时器任务是Remain先– 再与0判断</p>
+</li>
+</ol>
+<h3 id="1-2-真相终于浮出水面"><a href="#1-2-真相终于浮出水面" class="headerlink" title="1.2 真相终于浮出水面"></a>1.2 真相终于浮出水面</h3><p>​    如果定时器还在运行状态,再次Start了定时器, Remain的初值是直接装载的delay值,而我们设置的delay值为0,这种条件下Remain的值就变为0. 定时器任务又是先对Remian做的自减后再与0对比，实际这时类型为u32的Remain–已经后已经溢出为0xFFFFFFFF.</p>
+<p>​    等待这么大的TICK超时, 太久了….</p>
+<p>​    至此,确认这个BUG源自UCOS 3.04.05的Timer本身</p>
+<h2 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2.解决方案"></a>2.解决方案</h2><p>找到原因后的解决方案是极为容易的, 在 <code>OS_TMR_STATE_RUNNING</code> 状态下采用和 ‘OS_TMR_STATE_STOPPED’ 状态相同的Remain赋值逻辑即可:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    <span class="keyword">switch</span> (p_tmr-&gt;State) &#123;</span><br><span class="line">        <span class="keyword">case</span> OS_TMR_STATE_RUNNING:                          <span class="comment">/* Restart the timer                                      */</span></span><br><span class="line">             <span class="keyword">if</span> (p_tmr-&gt;Dly == (OS_TICK)<span class="number">0</span>) &#123;</span><br><span class="line">                 p_tmr-&gt;Remain = p_tmr-&gt;Period;</span><br><span class="line">			 &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                 p_tmr-&gt;Remain = p_tmr-&gt;Dly;</span><br><span class="line">             &#125;</span><br><span class="line">            *p_err         = OS_ERR_NONE;</span><br><span class="line">             success       = DEF_TRUE;</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> OS_TMR_STATE_STOPPED:                          <span class="comment">/* Start the timer                                        */</span></span><br><span class="line">        <span class="keyword">case</span> OS_TMR_STATE_COMPLETED:</span><br><span class="line">             p_tmr-&gt;State  = OS_TMR_STATE_RUNNING;</span><br><span class="line">			 <span class="keyword">if</span> (p_tmr-&gt;Dly == (OS_TICK)<span class="number">0</span>) &#123;</span><br><span class="line">                 p_tmr-&gt;Remain = p_tmr-&gt;Period;</span><br><span class="line">			 &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                 p_tmr-&gt;Remain = p_tmr-&gt;Dly;</span><br><span class="line">             &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>​    不用担心Period和Delay都会为0再次造成Remain–溢出, 因为都为0在创建定时器的时候已经返回错误了</p>
+<h2 id="3-新版本还有bug吗"><a href="#3-新版本还有bug吗" class="headerlink" title="3.新版本还有bug吗"></a>3.新版本还有bug吗</h2><p>​    通过Review UCOS-III 3.04.05定时器源码找到了这个定时器bug并解决, 那最新版本的ucos-iii还存在这个bug吗? 于是翻阅了v3.06.x的定时器源码:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">case</span> OS_TMR_STATE_RUNNING:                              <span class="comment">/* Restart the timer                                    */</span></span><br><span class="line">             <span class="keyword">if</span> (p_tmr-&gt;Dly == <span class="number">0u</span>) &#123;</span><br><span class="line">                 p_tmr-&gt;Remain = p_tmr-&gt;Period;</span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                 p_tmr-&gt;Remain = p_tmr-&gt;Dly;</span><br><span class="line">             &#125;</span><br><span class="line">            *p_err         = OS_ERR_NONE;</span><br><span class="line">             success       = DEF_TRUE;</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> OS_TMR_STATE_STOPPED:                              <span class="comment">/* Start the timer                                      */</span></span><br><span class="line">        <span class="keyword">case</span> OS_TMR_STATE_COMPLETED:</span><br><span class="line">             p_tmr-&gt;State  = OS_TMR_STATE_RUNNING;</span><br><span class="line">             <span class="keyword">if</span> (p_tmr-&gt;Dly == <span class="number">0u</span>) &#123;</span><br><span class="line">                 p_tmr-&gt;Remain = p_tmr-&gt;Period;</span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                 p_tmr-&gt;Remain = p_tmr-&gt;Dly;</span><br><span class="line">             &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>​    很显然的, ucos-iii官方已经测试到并使用相同的方法解决掉这个bug了.任然不死心, 去官方网站寻找这个bug从哪个版本解决的, 在 <a href="https://doc.micrium.com/pages/viewpage.action?pageId=12851580" target="_blank" rel="noopener">UCOS-III Release note</a> 找到:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Version 3.06.00</span><br><span class="line">Releasedate :2016-06-30</span><br><span class="line">...</span><br><span class="line">Bug fixes</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">When resetting a periodic timer with 0 initialdelay, the timer is now reset to the period value rather than the initial delay.</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>​    于2016.06.30 在3.06.00版本fix. 另外还看到其他特性/bug的修改,看来需要升级UCOS-III的版本了…</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/2017/11/23/05-Java/[java] - 02.Java的NaN和Infinity/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Java的NaN和Infinity
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/2017/10/25/02-Vm/[vm] - VM学习工具和资料整理/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">VM学习资料整理</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            nix.long &copy; 2017 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+
+    
+        <script src="/wiki/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/wiki/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/wiki/js/main.js"></script>
+
+    </div>
+</body>
+</html>

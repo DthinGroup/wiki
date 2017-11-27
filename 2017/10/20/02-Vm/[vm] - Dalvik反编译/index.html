@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Dalvik反编译 | dthing wiki</title>
+    
+    
+        <meta name="keywords" content="dalvik" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Dalvik反编译[TOC]  1.[注意]不要使用JDK1.8及以上2.[流程].java -&amp;gt; .class -&amp;gt; .dex –&amp;gt; .smali  ##0. Demo 1234567public class Main&amp;#123;    void main(Strin">
+<meta name="keywords" content="dalvik">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dalvik反编译">
+<meta property="og:url" content="https://DthinGroup.github.io/wiki/2017/10/20/02-Vm/[vm] - Dalvik反编译/index.html">
+<meta property="og:site_name" content="dthing wiki">
+<meta property="og:description" content="Dalvik反编译[TOC]  1.[注意]不要使用JDK1.8及以上2.[流程].java -&amp;gt; .class -&amp;gt; .dex –&amp;gt; .smali  ##0. Demo 1234567public class Main&amp;#123;    void main(String args[])&amp;#123;        int i = 0;        i = 5;        r">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://otfz8unl1.bkt.clouddn.com/markdown/171031/CK92afFfl2.png">
+<meta property="og:updated_time" content="2017-10-31T06:04:12.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dalvik反编译">
+<meta name="twitter:description" content="Dalvik反编译[TOC]  1.[注意]不要使用JDK1.8及以上2.[流程].java -&amp;gt; .class -&amp;gt; .dex –&amp;gt; .smali  ##0. Demo 1234567public class Main&amp;#123;    void main(String args[])&amp;#123;        int i = 0;        i = 5;        r">
+<meta name="twitter:image" content="http://otfz8unl1.bkt.clouddn.com/markdown/171031/CK92afFfl2.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="dthing wiki" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/wiki/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/wiki/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/wiki/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/wiki/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/wiki/css/style.css">
+    <script src="/wiki/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/wiki/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/wiki/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/wiki/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/wiki/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">dthing wiki</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="https://nixlong.github.io">Home</a>
+                
+                    <a class="main-nav-link" href="https://nixlong.github.io/blog">Blog</a>
+                
+                    <a class="main-nav-link" href="/wiki/">Wiki</a>
+                
+                    <a class="main-nav-link" href="https://nixlong.github.io/about/index.html">About</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/wiki/',
+        CONTENT_URL: '/wiki/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/wiki/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="https://nixlong.github.io">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="https://nixlong.github.io/blog">Blog</a></td>
+                
+                    <td><a class="main-nav-link" href="/wiki/">Wiki</a></td>
+                
+                    <td><a class="main-nav-link" href="https://nixlong.github.io/about/index.html">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-up fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" style="display: block;"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOT
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/07/24/03-Iot/[iot] - Iot基础案例设计初览/">Iot基础案例设计初览</a></li>  <li class="file"><a href="/wiki/2017/07/25/03-Iot/[iot] - Iot网络层无线技术方案PK(1) - 技术特点初探/">Iot网络层无线技术方案PK(1) - 技术特点初探</a></li>  <li class="file"><a href="/wiki/2017/07/26/03-Iot/[iot] - Iot网络层无线技术方案PK(2) - 华山论剑Round 1 - LPWAN的王者之争 - NB-IOT pk Lora/">Iot网络层无线技术方案PK(2) - LPWAN的王者之争[NB-IOT pk Lora]</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            JAVA
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/11/24/05-Java/[java] - 03.Java的字面常量值/">Java的字面常量值</a></li>  <li class="file"><a href="/wiki/2017/11/23/05-Java/[java] - 02.Java的NaN和Infinity/">Java的NaN和Infinity</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            MCU
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/08/04/04-Mcu/[mcu] - STM32内存结构总结/">STM32内存结构总结</a></li>  <li class="file"><a href="/wiki/2017/10/26/04-Mcu/[mcu] - UCOSIII-3.04.05定时器Bug/">UCOSIII-v3.04.05 定时器Bug</a></li>  <li class="file"><a href="/wiki/2017/08/14/04-Mcu/[mcu] - Ymodem协议移植/">Ymodem协议移植</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            TOOL
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/09/30/09-Tools/[0] - Hexo+github搭建Blog/">Hexo + Github搭建Blog</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            VM
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/10/20/02-Vm/[vm] - JVM反编译/">JVM反编译</a></li>  <li class="file active"><a href="/wiki/2017/10/20/02-Vm/[vm] - Dalvik反编译/">Dalvik反编译</a></li>  <li class="file"><a href="/wiki/2017/10/25/02-Vm/[vm] - VM学习工具和资料整理/">VM学习资料整理</a></li>  <li class="file"><a href="/wiki/2017/10/19/02-Vm/[vm] - 理解Dalvik指令码执行原理/">理解Dalvik指令码执行原理</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-02-Vm/[vm] - Dalvik反编译" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="http://otfz8unl1.bkt.clouddn.com/markdown/171031/CK92afFfl2.png" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/wiki/categories/VM/">VM</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/wiki/tags/dalvik/">dalvik</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/2017/10/20/02-Vm/[vm] - Dalvik反编译/">
+            <time datetime="2017-10-20T04:02:00.000Z" itemprop="datePublished">2017-10-20</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Dalvik反编译
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Dalvik反编译"><span class="toc-number">1.</span> <span class="toc-text">Dalvik反编译</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-javac"><span class="toc-number">1.1.</span> <span class="toc-text">1.javac</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-生成Dex"><span class="toc-number">1.2.</span> <span class="toc-text">2.生成Dex</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Samli"><span class="toc-number">1.3.</span> <span class="toc-text">3. Samli</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-涉及工具"><span class="toc-number">1.4.</span> <span class="toc-text">4. 涉及工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Bat脚本"><span class="toc-number">1.5.</span> <span class="toc-text">5. Bat脚本</span></a></li></ol></li></ol>
+                </div>
+            
+        
+        
+            <h1 id="Dalvik反编译"><a href="#Dalvik反编译" class="headerlink" title="Dalvik反编译"></a>Dalvik反编译</h1><p>[TOC]</p>
+<blockquote>
+<p>1.[注意]不要使用JDK1.8及以上<br>2.[流程].java -&gt; .class -&gt; .dex –&gt; .smali</p>
+</blockquote>
+<p>##0. Demo</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        i = <span class="number">5</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1-javac"><a href="#1-javac" class="headerlink" title="1.javac"></a>1.javac</h2><p>编译 .class</p>
+<blockquote>
+<p>javac Main.java</p>
+</blockquote>
+<h2 id="2-生成Dex"><a href="#2-生成Dex" class="headerlink" title="2.生成Dex"></a>2.生成Dex</h2><p>使用Android dx.jar包将.class转换为.dex, dx.jar一般位于 android-sdk\build-tools* 下面</p>
+<blockquote>
+<p>java -jar dx.jar –dex –output=Main.dex Main.class</p>
+</blockquote>
+<h2 id="3-Samli"><a href="#3-Samli" class="headerlink" title="3. Samli"></a>3. Samli</h2><p>使用smali包工具将dex文件转换为smali：<br>java -jar baksmali.jar Main.dex</p>
+<p>此时会生成一个out目录，在out目录下的Main.smali就是我们要看到的smali代码了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">.class <span class="keyword">public</span> LMain;</span><br><span class="line">.<span class="keyword">super</span> Ljava/lang/Object;</span><br><span class="line">.source <span class="string">"Main.java"</span></span><br><span class="line"># direct methods</span><br><span class="line">.method <span class="keyword">public</span> constructor &lt;init&gt;()V</span><br><span class="line">    .registers <span class="number">1</span></span><br><span class="line">    .prologue</span><br><span class="line">    .line <span class="number">2</span></span><br><span class="line">    invoke-direct &#123;p0&#125;, Ljava/lang/Object;-&gt;&lt;init&gt;()V</span><br><span class="line">    <span class="keyword">return</span>-<span class="keyword">void</span></span><br><span class="line">.end method</span><br><span class="line"># virtual methods</span><br><span class="line">.<span class="function">method <span class="title">main</span><span class="params">([Ljava/lang/String;)</span>V</span></span><br><span class="line"><span class="function">    .registers 2</span></span><br><span class="line"><span class="function">    .prologue</span></span><br><span class="line"><span class="function">    .line 5</span></span><br><span class="line"><span class="function">    .line 7</span></span><br><span class="line"><span class="function">    return-<span class="keyword">void</span></span></span><br><span class="line"><span class="function">.end method</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="4-涉及工具"><a href="#4-涉及工具" class="headerlink" title="4. 涉及工具"></a>4. 涉及工具</h2><ul>
+<li>apktool：<br>是apk格式文件与smali文件的转换</li>
+</ul>
+<ul>
+<li>dex2jar：<br>是dex格式文件与jar文件的转换</li>
+</ul>
+<ul>
+<li>smali/baksmali：<br>是dex格式文件与smali文件的转换</li>
+</ul>
+<h2 id="5-Bat脚本"><a href="#5-Bat脚本" class="headerlink" title="5. Bat脚本"></a>5. Bat脚本</h2><blockquote>
+<p>java2smali.bat</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">REM =====================================================================</span><br><span class="line">REM Author:     nix.<span class="keyword">long</span></span><br><span class="line">REM Date:        <span class="number">2017.10</span>.17</span><br><span class="line">REM Function:     compile x.java to dalvik smali code    </span><br><span class="line">REM =====================================================================</span><br><span class="line"></span><br><span class="line"><span class="meta">@echo</span> off</span><br><span class="line"><span class="keyword">if</span> <span class="string">"%1"</span>==<span class="string">""</span> (</span><br><span class="line">    goto help</span><br><span class="line">)</span><br><span class="line">set input=%<span class="number">1</span></span><br><span class="line">set baksmali=baksmali-<span class="number">2.1</span>.3.jar</span><br><span class="line">IF %input% == help (</span><br><span class="line">    goto help</span><br><span class="line">) ELSE IF %input% == clean (</span><br><span class="line">    IF EXIST *.class (</span><br><span class="line">        del /f /s /q *.class</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    IF EXIST *.dex (</span><br><span class="line">        del /f /s /q *.dex</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    IF EXIST *.smali (</span><br><span class="line">        del /f /s /q *.smali</span><br><span class="line">    )</span><br><span class="line">) ELSE (</span><br><span class="line">    IF EXIST %input%.class (</span><br><span class="line">        del /f /s /q %input%.class</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    IF EXIST %input%.dex (</span><br><span class="line">        del /f /s /q %input%.dex</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    IF EXIST %input%/%input%.smali (</span><br><span class="line">        del /f /s /q %input%\%input%.smali</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    echo <span class="string">'to make:'</span>  %input%.java</span><br><span class="line">    echo <span class="string">'to gen class:'</span>  %input%.class</span><br><span class="line">    javac %input%.java</span><br><span class="line">    echo <span class="string">'to gen dex:'</span>  %input%.dex</span><br><span class="line">    java -jar dx.jar --dex --output=%input%.dex %input%.class</span><br><span class="line">    java -jar %baksmali% -o %input% %input%.dex</span><br><span class="line">    echo <span class="string">'gen smali ok...'</span></span><br><span class="line">)</span><br><span class="line">goto end</span><br><span class="line">:help</span><br><span class="line">    echo -----------------------------------------------------------------</span><br><span class="line">    echo     help [dalvik smali]:</span><br><span class="line">    echo        java2smali.bat help     - show help</span><br><span class="line">    echo        java2smali.bat clean    - clean mid-files</span><br><span class="line">    echo        java2smali.bat X        - gen smali file <span class="keyword">for</span> X.java</span><br><span class="line">    echo -----------------------------------------------------------------</span><br><span class="line">:end</span><br></pre></td></tr></table></figure>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/2017/10/25/02-Vm/[vm] - VM学习工具和资料整理/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    VM学习资料整理
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/2017/10/20/02-Vm/[vm] - JVM反编译/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">JVM反编译</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            nix.long &copy; 2017 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+
+    
+        <script src="/wiki/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/wiki/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/wiki/js/main.js"></script>
+
+    </div>
+</body>
+</html>

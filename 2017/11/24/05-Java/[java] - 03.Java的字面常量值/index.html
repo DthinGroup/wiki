@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Java的字面常量值 | dthing wiki</title>
+    
+    
+        <meta name="keywords" content="java" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="#Java的字面常量值 [TOC] 1. literal​    Java规范共给出53个保留标识符, 其中50个是关键字, 3个字面常量 true/false/null. ​    Java规范给出了不将true/false/null归类为关键字的原因: 技术层面的实现非常简单. 2. 测试代码​    我们将如下一">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java的字面常量值">
+<meta property="og:url" content="https://DthinGroup.github.io/wiki/2017/11/24/05-Java/[java] - 03.Java的字面常量值/index.html">
+<meta property="og:site_name" content="dthing wiki">
+<meta property="og:description" content="#Java的字面常量值 [TOC] 1. literal​    Java规范共给出53个保留标识符, 其中50个是关键字, 3个字面常量 true/false/null. ​    Java规范给出了不将true/false/null归类为关键字的原因: 技术层面的实现非常简单. 2. 测试代码​    我们将如下一段代码反编译为Java字节码： 12345boolean bA = true;b">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://otfz8unl1.bkt.clouddn.com/markdown/171124/iHgKeadLFD.png">
+<meta property="og:updated_time" content="2017-11-24T03:55:15.527Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java的字面常量值">
+<meta name="twitter:description" content="#Java的字面常量值 [TOC] 1. literal​    Java规范共给出53个保留标识符, 其中50个是关键字, 3个字面常量 true/false/null. ​    Java规范给出了不将true/false/null归类为关键字的原因: 技术层面的实现非常简单. 2. 测试代码​    我们将如下一段代码反编译为Java字节码： 12345boolean bA = true;b">
+<meta name="twitter:image" content="http://otfz8unl1.bkt.clouddn.com/markdown/171124/iHgKeadLFD.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="dthing wiki" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/wiki/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/wiki/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/wiki/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/wiki/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/wiki/css/style.css">
+    <script src="/wiki/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/wiki/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/wiki/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/wiki/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/wiki/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">dthing wiki</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="https://nixlong.github.io">Home</a>
+                
+                    <a class="main-nav-link" href="https://nixlong.github.io/blog">Blog</a>
+                
+                    <a class="main-nav-link" href="/wiki/">Wiki</a>
+                
+                    <a class="main-nav-link" href="https://nixlong.github.io/about/index.html">About</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/wiki/',
+        CONTENT_URL: '/wiki/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/wiki/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="https://nixlong.github.io">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="https://nixlong.github.io/blog">Blog</a></td>
+                
+                    <td><a class="main-nav-link" href="/wiki/">Wiki</a></td>
+                
+                    <td><a class="main-nav-link" href="https://nixlong.github.io/about/index.html">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-up fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" style="display: block;"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOT
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/07/24/03-Iot/[iot] - Iot基础案例设计初览/">Iot基础案例设计初览</a></li>  <li class="file"><a href="/wiki/2017/07/25/03-Iot/[iot] - Iot网络层无线技术方案PK(1) - 技术特点初探/">Iot网络层无线技术方案PK(1) - 技术特点初探</a></li>  <li class="file"><a href="/wiki/2017/07/26/03-Iot/[iot] - Iot网络层无线技术方案PK(2) - 华山论剑Round 1 - LPWAN的王者之争 - NB-IOT pk Lora/">Iot网络层无线技术方案PK(2) - LPWAN的王者之争[NB-IOT pk Lora]</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            JAVA
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file active"><a href="/wiki/2017/11/24/05-Java/[java] - 03.Java的字面常量值/">Java的字面常量值</a></li>  <li class="file"><a href="/wiki/2017/11/23/05-Java/[java] - 02.Java的NaN和Infinity/">Java的NaN和Infinity</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            MCU
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/08/04/04-Mcu/[mcu] - STM32内存结构总结/">STM32内存结构总结</a></li>  <li class="file"><a href="/wiki/2017/10/26/04-Mcu/[mcu] - UCOSIII-3.04.05定时器Bug/">UCOSIII-v3.04.05 定时器Bug</a></li>  <li class="file"><a href="/wiki/2017/08/14/04-Mcu/[mcu] - Ymodem协议移植/">Ymodem协议移植</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            TOOL
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/09/30/09-Tools/[0] - Hexo+github搭建Blog/">Hexo + Github搭建Blog</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            VM
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/2017/10/20/02-Vm/[vm] - JVM反编译/">JVM反编译</a></li>  <li class="file"><a href="/wiki/2017/10/20/02-Vm/[vm] - Dalvik反编译/">Dalvik反编译</a></li>  <li class="file"><a href="/wiki/2017/10/25/02-Vm/[vm] - VM学习工具和资料整理/">VM学习资料整理</a></li>  <li class="file"><a href="/wiki/2017/10/19/02-Vm/[vm] - 理解Dalvik指令码执行原理/">理解Dalvik指令码执行原理</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-05-Java/[java] - 03.Java的字面常量值" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="http://otfz8unl1.bkt.clouddn.com/markdown/171124/iHgKeadLFD.png" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/wiki/categories/JAVA/">JAVA</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/wiki/tags/java/">java</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/2017/11/24/05-Java/[java] - 03.Java的字面常量值/">
+            <time datetime="2017-11-24T05:00:00.000Z" itemprop="datePublished">2017-11-24</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Java的字面常量值
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-literal"><span class="toc-number">1.</span> <span class="toc-text">1. literal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-测试代码"><span class="toc-number">2.</span> <span class="toc-text">2. 测试代码</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>#Java的字面常量值</p>
+<p>[TOC]</p>
+<h2 id="1-literal"><a href="#1-literal" class="headerlink" title="1. literal"></a>1. literal</h2><p>​    Java规范共给出53个保留标识符, 其中50个是关键字, 3个字面常量 true/false/null.</p>
+<p>​    Java规范给出了不将true/false/null归类为关键字的原因: 技术层面的实现非常简单.</p>
+<h2 id="2-测试代码"><a href="#2-测试代码" class="headerlink" title="2. 测试代码"></a>2. 测试代码</h2><p>​    我们将如下一段代码反编译为Java字节码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> bA = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">boolean</span> bB = <span class="keyword">false</span>;</span><br><span class="line">String str1 = <span class="keyword">null</span>;</span><br><span class="line">String str2 = <span class="keyword">new</span> String();</span><br><span class="line">String str3 = <span class="string">"hard-string"</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">0: iconst_1</span><br><span class="line">     1: istore_1</span><br><span class="line">     2: iconst_0</span><br><span class="line">     3: istore_2</span><br><span class="line">     4: aconst_null</span><br><span class="line">     5: astore_3</span><br><span class="line">     6: new           #27                 // class java/lang/String</span><br><span class="line">     9: dup</span><br><span class="line">    10: invokespecial #29                 // Method java/lang/String.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">    13: astore        4</span><br><span class="line">    15: ldc           #30                 // String hard-string</span><br><span class="line">    17: astore        5</span><br></pre></td></tr></table></figure>
+<p>​    可以看到, 在编译阶段:</p>
+<ul>
+<li><p>true 直接被翻译为iconst_1 指令, 可当作整型1处理</p>
+</li>
+<li><p>false 直接被翻译为iconst_0 指令, 可当作整型0处理</p>
+</li>
+<li><p>null  直接被翻译为aconst_null 指令, 翻看hotspot的处理:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CASE(_aconst_null):</span><br><span class="line">         SET_STACK_OBJECT(<span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">         UPDATE_PC_AND_TOS_AND_CONTINUE(<span class="number">1</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>也只是将其当作null指针处理.</p>
+</li>
+</ul>
+<p>​    也就是说, 这3个字面量标识符, 仅用着变量赋值, 在编译阶段结束后, 对应着3条极其简单的处理指令. 因此Java spec 为将其纳入Java语言关键字范畴. 但是这3个词也不能用作变量名出现, 可看作为Java的3个保留字.</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/2017/11/23/05-Java/[java] - 02.Java的NaN和Infinity/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Java的NaN和Infinity</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            nix.long &copy; 2017 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+
+    
+        <script src="/wiki/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/wiki/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/wiki/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/wiki/js/main.js"></script>
+
+    </div>
+</body>
+</html>
